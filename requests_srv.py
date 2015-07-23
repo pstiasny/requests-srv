@@ -1,8 +1,9 @@
 from urlparse import urlparse, urlunparse
 
 import dns.resolver
-from requests import Session, HTTPError
-from requests.adapters import HTTPAdapter, DEFAULT_POOLSIZE, DEFAULT_RETRIES, DEFAULT_POOLBLOCK
+import dns.exception
+from requests import Session, ConnectionError
+from requests.adapters import HTTPAdapter
 
 
 class SRVResolverHTTPAdapter(HTTPAdapter):
@@ -21,7 +22,7 @@ class SRVResolverHTTPAdapter(HTTPAdapter):
         host, port = self.__resolve(parsed.netloc)
         redirected_url = urlunparse((
             parsed.scheme,
-            '%s:%d' % (host, port), 
+            '%s:%d' % (host, port),
             parsed.path,
             parsed.params,
             parsed.query,
@@ -30,7 +31,10 @@ class SRVResolverHTTPAdapter(HTTPAdapter):
         return super(SRVResolverHTTPAdapter, self).get_connection(redirected_url, proxies=proxies)
 
     def __resolve(self, service):
-        answers = self.resolver.query(service, 'SRV')
+        try:
+            answers = self.resolver.query(service, 'SRV')
+        except dns.exception.DNSException as e:
+            raise ConnectionError('DNS error: ' + e.__class__.__name__)
         return answers[0].target, answers[0].port
 
 session = Session()

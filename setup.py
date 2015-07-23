@@ -4,7 +4,7 @@ import setuptools
 
 setuptools.setup(
     name="requests_srv",
-    version="0.0.2",
+    version="0.0.3",
     py_modules=["requests_srv"],
     author=u"Paweł Stiasny",
     author_email="pawelstiasny@gmail.com",
@@ -22,7 +22,5 @@ setuptools.setup(
     install_requires=[
         'requests',
         'dnspython',
-        'pytest',
-        'python-consul',
     ],
 )

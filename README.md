@@ -31,3 +31,10 @@ Test environent is set up in docker containers.  To set up and run:
 ```sh
 bash test.sh
 ```
+
+## License
+
+Just as requests, request_srv is licensed under the Apache License,
+version 2.0
+
+You may obtain a copy of the License at <http://www.apache.org/licenses/LICENSE-2.0>.

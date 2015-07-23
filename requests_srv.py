@@ -1,6 +1,3 @@
-# http://stackoverflow.com/questions/22609385/python-requests-library-define-specific-dns
-
-
 from urlparse import urlparse, urlunparse
 
 import dns.resolver
@@ -30,7 +27,6 @@ class SRVResolverHTTPAdapter(HTTPAdapter):
             parsed.query,
             parsed.fragment
         ))
-        print redirected_url
         return super(SRVResolverHTTPAdapter, self).get_connection(redirected_url, proxies=proxies)
 
     def __resolve(self, service):

@@ -17,6 +17,7 @@ print requests.get('http://_consul._http.service.consul/v1/catalog/services').te
 ## Use with your custom session
 
 ```python
+from requests import Session
 from requests_srv import SRVResolverHTTPAdapter
 
 session = Session()
